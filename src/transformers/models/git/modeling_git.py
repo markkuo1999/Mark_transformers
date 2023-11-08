@@ -1502,7 +1502,6 @@ class GitForCausalLM(GitPreTrainedModel):
             shifted_logits = logits[:, num_image_tokens:-1, :].contiguous()
             labels = labels[:, 1:].contiguous()
             loss_fct = CrossEntropyLoss()
-            print("hello")
             loss = loss_fct(shifted_logits.view(-1, self.config.vocab_size), labels.view(-1))
 
         if not return_dict:
