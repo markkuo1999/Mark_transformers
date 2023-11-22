@@ -1494,6 +1494,7 @@ class GitForCausalLM(GitPreTrainedModel):
 
         sequence_output = outputs[0]
         logits = self.output(sequence_output)
+        print("Logits", logits.shape)
 
         loss = None
         if labels is not None:
@@ -1503,6 +1504,7 @@ class GitForCausalLM(GitPreTrainedModel):
             labels = labels[:, 1:].contiguous()
             loss_fct = CrossEntropyLoss()
             loss = loss_fct(shifted_logits.view(-1, self.config.vocab_size), labels.view(-1))
+            print("loss", loss.shape)
 
         if not return_dict:
             output = (logits,) + outputs[1:]
